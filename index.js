@@ -3,15 +3,15 @@ const Web3 = require("web3");
 const { Kafka } = require("kafkajs");
 require("dotenv").config();
 
-const contactsABI = require("./src/smartContract/build/contracts/Contacts.json");
+const contactsABI = require("./src/build/contracts/Contacts.json");
 
 const kafka = new Kafka({
   clientId: "my-app",
-  brokers: ["103.106.72.182:9092"],
+  brokers: [`${process.env.KAFKA_URI}:${process.env.KAFKA_PORT}`],
 });
 
-const port = 8123;
-const uri = "103.106.72.182";
+const port = process.env.WEBSOCKET_PORT;
+const uri = process.env.WEBSOCKET_URI;
 const socketUri = `ws://${uri}:${port}/api/websocket`;
 const socket = new WebSocket(socketUri);
 
